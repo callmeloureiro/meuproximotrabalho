@@ -17,7 +17,7 @@ $ rails db:create db:migrate
 
 ## Acesso
 
-Admin: admin@admin.com / admin ··
+Admin: admin@admin.com / admin <br />
 User: user@user.admin / user
 
 ## Demo
