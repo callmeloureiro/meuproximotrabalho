@@ -1,6 +1,6 @@
 ## Sobre
 
-Meu Próximo Trabalho é uma plataforma simples e completa. Simples porquê, para utilizá-la, não é necessário nenhum conhecimento específico. Sabe usar o Facebook? Então você vai tirar de letra. Completa porque oferece suporte tanto para quem procura quanto para quem oferece emprego. A busca é otimizada por filtros que direcionam sua pesquisa e fazem com que você encontre exatamente o que procura. 
+Meu Próximo Trabalho é uma plataforma simples e completa com o objetivo de listar vagas de emprego. Simples porquê, para utilizá-la, não é necessário nenhum conhecimento específico. Sabe usar o Facebook? Então você vai tirar de letra. Completa porque oferece suporte tanto para quem procura quanto para quem oferece emprego. A busca é otimizada por filtros que direcionam sua pesquisa e fazem com que você encontre exatamente o que procura. 
 
 Espero que seja útil!
 
@@ -17,7 +17,7 @@ $ rails db:create db:migrate
 
 ## Acesso
 
-Admin: admin@admin.com / admin
+Admin: admin@admin.com / admin ··
 User: user@user.admin / user
 
 ## Demo
