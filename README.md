@@ -15,6 +15,11 @@ $ cd meuproximotrabalho
 $ rails db:create db:migrate
 ```
 
+## Acesso
+
+Admin: admin@admin.com / admin
+User: user@user.admin / user
+
 ## Demo
 
 [http://meuproximotrabalho.fabricadeideias.co](http://meuproximotrabalho.fabricadeideias.co)
