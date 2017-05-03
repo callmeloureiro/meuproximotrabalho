@@ -1,6 +1,8 @@
 ## Sobre
 
-Meu Próximo Trabalho é uma plataforma simples e completa. Simples porquê, para utilizá-la, não é necessário nenhum conhecimento específico. Sabe usar o Facebook? Então você vai tirar de letra. Completa porque oferece suporte tanto para quem procura quanto para quem oferece emprego. A busca é otimizada por filtros que direcionam sua pesquisa e fazem com que você encontre exatamente o que procura. Espero que seja útil!
+Meu Próximo Trabalho é uma plataforma simples e completa. Simples porquê, para utilizá-la, não é necessário nenhum conhecimento específico. Sabe usar o Facebook? Então você vai tirar de letra. Completa porque oferece suporte tanto para quem procura quanto para quem oferece emprego. A busca é otimizada por filtros que direcionam sua pesquisa e fazem com que você encontre exatamente o que procura. 
+
+Espero que seja útil!
 
 ## OBS
 
