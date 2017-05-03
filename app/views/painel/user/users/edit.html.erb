@@ -1,0 +1,264 @@
+<!-- page head start-->
+<div class="page-head">
+  <h1 class="text-center">Edite seu perfil</h1>
+  <p class="lead text-center">Mantenha-o sempre atualizado, isso é muito importante.</p>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <% if flash[:notice] %>
+    <div class="row noticecontainer"">
+      <div class="col-md-10 col-centered">
+        <div class="alert alert-success no-margin" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-md-10 col-centered">
+    <div class="row">
+      <%= form_for([:painel, :user, @user], :html => { :multipart => true }) do |f| %>
+        <section class="panel">
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-4">
+              <div class="form-group">
+                <% case current_user.type_user %>
+                <% when 0 %>
+                  <p>Sua foto:</p>
+                <% when 1 %>
+                  <p>Sua foto ou logo:</p>
+                <% when 2 %>
+                  <p>Sua logo:</p>
+                <% end %>
+                <% unless @user.avatar.blank? %>
+                  <%= f.file_field :avatar, class: "dropify", :data => { :"default-file" => @user.avatar.url(:original, timestamp: false) } %>
+                <% else %>
+                  <%= f.file_field :avatar, class: "dropify" %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+              <div class="form-group">
+                <%= f.text_field :name, class: "form-control", :placeholder => "Nome" %>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">http://meuproximotrabalho.com.br/perfil/</span>
+                  <%= f.text_field :slug, class: "form-control", :placeholder => "URL amigável" %>
+                </div>
+              </div>
+              <% if current_user.type_user == 0 %>
+<!--                 <div class="form-group">
+                  <%#= f.text_field :office, class: "form-control", :placeholder => "Palavras chaves que descreve você" %>
+                </div> -->
+                <div class="form-group">
+                  <%= f.text_area :about, class: "form-control", :placeholder => "Pequena descrição sobre você", rows:3 %>
+                </div>
+              <% elsif current_user.type_user == 1  %>
+<!--                 <div class="form-group">
+                  <%#= f.text_field :office, class: "form-control", :placeholder => "Palavras chaves que descreve você ou sua empresa" %>
+                </div> -->
+                <div class="form-group">
+                  <%= f.text_area :about, class: "form-control", :placeholder => "Pequena descrição sobre você ou sua empresa", rows:3 %>
+                </div>
+              <% elsif current_user.type_user == 2 %>
+<!--                 <div class="form-group">
+                  <%#= f.text_field :office, class: "form-control", :placeholder => "Palavras chaves que descreve sua empresa" %>
+                </div> -->
+                <div class="form-group">
+                  <%= f.text_area :about, class: "form-control", :placeholder => "Pequena descrição sobre sua empresa", rows:3 %>
+                </div>
+              <% end %>
+              <hr class="hr-lg">
+              <% if current_user.type_user == 1 %>
+                <h4>Informações empresariais</h4>
+                <div class="row">
+                  <div class="col-md-12">
+                    <small>Preencha CPF ou CNPJ</small>
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-6">
+                    <%= f.text_field :cnpj, class: "form-control", :placeholder => "CNPJ" %>
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-6">
+                    <%= f.text_field :cpf, class: "form-control", :placeholder => "CPF" %>
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-12">
+                    <%= f.text_field :company_name, class: "form-control", :placeholder => "Nome da empresa" %>
+                  </div>
+                </div>
+              <% else %>
+                <% if current_user.type_user == 2 %>
+                  <h4>Informações empresariais</h4>
+                    <div class="row">
+                      <div class="form-group col-xs-12 col-sm-12">
+                        <%= f.text_field :cnpj, class: "form-control", :placeholder => "CNPJ" %>
+                      </div>
+                      <div class="form-group col-xs-12 col-sm-12">
+                        <%= f.text_field :company_name, class: "form-control", :placeholder => "Nome da empresa" %>
+                      </div>
+                    </div>
+                <% end %>
+              <% end %>
+              <h4>Informações de endereço</h4>
+              <div class="row">
+                <div class="form-group col-xs-12 col-sm-6">
+                  <%= f.text_field :zipcode, class: "form-control", :placeholder => "CEP" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                  <%= f.text_field :city, class: "form-control", :placeholder => "Cidade" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                  <%= f.text_field :state, class: "form-control", :placeholder => "Estado" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-6">
+                  <%= f.text_field :district, class: "form-control", :placeholder => "Bairro" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-9">
+                  <%= f.text_field :address, class: "form-control", :placeholder => "Endereço" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-3">
+                  <%= f.text_field :number, class: "form-control", placeholder: "Número" %>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12">
+                  <%= f.text_field :complement, class: "form-control", :placeholder => "Complemento" %>
+                </div>
+              </div>
+              <hr class="hr-lg">
+            </div>
+            <% if current_user.type_user != 2  %>
+              <div class="col-xs-12">
+                <div class="action-buttons">
+                  <div class="upload-button">
+                    <div class="col-md-6">
+                      <% if current_user.type_user == 1 %>
+                        <small>Profissional de RH, anexe seu currículo apenas se quiser concorrer a uma vaga.</small>
+                      <% else %>
+                        <small>Anexe seu currículo, envie novamente caso queira modificar.</small>
+                      <% end %>
+                      <%= f.file_field :cv_pdf, class: "file", :"data-show-preview" => false, :accept => 'application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf' %>
+                    </div>
+                    <div class="col-md-6">
+                      <% if @user.cv_pdf? %>
+                        <small>Visulize seu currículo abaixo</small>
+                        <a href="<%= @user.cv_pdf.url(:default, timestamp: false) %>" class="btn btn-success btn-xl btn-round btn-block">Seu currículo</a>
+                      <% end %> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </section>
+
+        <section class="panel">
+          <header class="panel-heading">
+            Informações sociais
+          </header>
+          <div class="panel-body">
+<!--             <div class="form-group col-xs-12 col-sm-12">
+              <%#= f.text_field :website, class: "form-control", :placeholder => "Site" %>
+            </div> -->
+            <div class="form-group col-xs-12 col-sm-12">
+              <%= f.text_field :phone, class: "form-control", :placeholder => "Telefone(s)" %>
+            </div>
+            <% if current_user.type_user == 0 %>
+              <div class="form-group col-xs-12 col-sm-12">
+                <%= f.text_field :date_of_birth, class: "form-control", :placeholder => "Data de nascimento" %>
+              </div>
+            <% else %>
+              <% if current_user.type_user == 1 %>
+                <div class="form-group col-xs-12 col-sm-12">
+                  <%= f.text_field :date_of_birth, class: "form-control", :placeholder => "Data do início da carreira" %>
+                </div>
+              <% elsif current_user.type_user == 2 %>
+                <div class="form-group col-xs-12 col-sm-12">
+                  <%= f.text_field :date_of_birth, class: "form-control", :placeholder => "Data da fundação" %>
+                </div>
+              <% end %>
+            <% end %>
+            <% if current_user.type_user == 0 %>
+<!--               <div class="form-group col-xs-12 col-sm-12">
+                <%#= f.text_field :cpf, class: "form-control", :placeholder => "CPF" %>
+              </div> -->
+            <% end %>
+            <div class="col-xs-12 col-sm-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+                  <%= f.text_field :facebook, class: "form-control", :placeholder => "URL do Facebook, Exemplo: http://facebook.com/mathloureiro" %>
+                </div>
+              </div>
+<!--               <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-google-plus"></i></span>
+                  <%#= f.text_field :googleplus, class: "form-control", :placeholder => "URL do Google Plus" %>
+                </div>
+              </div> -->
+<!--               <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-pinterest"></i></span>
+                  <%#= f.text_field :pinterest, class: "form-control", :placeholder => "URL do Pinterest" %>
+                </div>
+              </div> -->
+            </div>
+            <div class="col-xs-12 col-sm-6">
+<!--               <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+                  <%#= f.text_field :twitter, class: "form-control", :placeholder => "URL do Twitter" %>
+                </div>
+              </div> -->
+<!--               <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-github"></i></span>
+                  <%#= f.text_field :github, class: "form-control", :placeholder => "URL do GitHub" %>
+                </div>
+              </div> -->
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-instagram"></i></span>
+                  <%= f.text_field :instagram, class: "form-control", :placeholder => "URL do Instagram, Exemplo: http://instagram.com/mathloureiro" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <header class="panel-heading">
+            Informações de acesso
+          </header>
+          <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-12">
+              <%= f.text_field :email, class: "form-control", :placeholder => "Email" %>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12">
+              <%= f.password_field :password, class: "form-control", :placeholder => "Senha" %>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12">
+              <%= f.password_field :password_confirmation, class: "form-control", :placeholder => "Confirmar senha" %>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-body">
+            <%= f.submit 'Atualizar', class: "btn btn-success btn-xl btn-round btn-block" %>
+          </div>
+        </section>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.1/css/dropify.min.css">
+  <link rel="stylesheet" href="/assets/panel/js/bootstrap-fileinput-master/css/fileinput.css">
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_include_tag "/assets/panel/js/bootstrap-fileinput-master/js/fileinput.js" %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.1/js/dropify.min.js' %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" %>
+  <%= javascript_include_tag "/assets/js/painel/main.js" %>
+<% end %>

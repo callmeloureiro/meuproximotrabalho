@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MeuPróximoTrabalho">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="keywords" content="">
+
+    <title>Meu Próximo Trabalho - Painel</title>
+
+    <!-- Styles -->
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag    'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css' %>
+    <link href="/assets/css/app.min.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link href="/assets/vendors/summernote/summernote.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="http://shamsoft.net/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/favicon.ico">
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="nav-on-header <%= yield (:body_class) %> page-alt painel-app">
+    <%= render 'layouts/_painel/nav' %>

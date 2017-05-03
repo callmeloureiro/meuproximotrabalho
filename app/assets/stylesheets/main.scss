@@ -1,0 +1,406 @@
+
+
+.painel-app {
+  .col-centered{
+    float: none;
+    margin: 0 auto;
+  }
+}
+
+.no-margin {
+  margin:0
+}
+
+.logo-company {
+  height:45px;
+  width:auto;
+  float:left;
+  img {
+    position: relative;
+    top: 50%;
+    transform:      translateY(-50%);
+  }
+}
+
+.logo-job {
+  margin-right:20px;
+  max-width:100px;
+  float:left;
+  padding-top:10px;
+}
+
+.logo-centered {
+  position: absolute;
+  top: 50%;
+  transform:      translateY(-50%);
+}
+
+.logo-container {
+  width:64px;
+  height:70px;
+  float:left;
+  margin-right: 30px;
+  position:relative
+}
+
+.section-header h2, 
+.section-header h3 {
+  text-transform: none !important;
+}
+
+.blocoempresa {
+  text-align:center;
+  img {
+    float:none !important;
+    display:inline-block;
+    margin:0 auto;
+    margin-right:0 !important;
+  }
+}
+
+.page-alt {
+  .navbar {
+    margin-top:0 !important;
+    background-color:#00AEFF !important;
+    padding:1.5rem 0;
+  }
+}
+
+.nav-transparent {
+  .navbar {
+    background-color:transparent !important;
+  }
+}
+
+.section-lou {
+  padding-bottom:0 !important;
+  .section-header {
+    margin-bottom:2rem;
+  }
+}
+
+.padding-top {
+  padding-top:3rem;
+}
+
+.nav-menu {
+  float:left
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content.verticaly {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+
+
+/* Price table */
+
+.color-violet .container-button {
+  background-color: #98f;
+}
+.color-violet .container-button:before {
+  background-color: #98f;
+}
+.color-violet .w-item span {
+  color: #98f;
+}
+
+.color-green .container-button {
+  background-color: #1bbc9d;
+}
+.color-green .container-button:before {
+  background-color: #1bbc9d;
+}
+.color-green .w-item span {
+  color: #1bbc9d;
+}
+
+.color-red .container-button {
+  background-color: #DB343A;
+}
+.color-red .container-button:before {
+  background-color: #DB343A;
+}
+.color-red .w-item span {
+  color: #DB343A;
+}
+
+.color-pink .container-button {
+  background-color: #E91E63;
+}
+.color-pink .container-button:before {
+  background-color: #E91E63;
+}
+.color-pink .w-item span {
+  color: #E91E63;
+}
+
+.color-blue .container-button {
+  background-color: #3498db;
+}
+.color-blue .container-button:before {
+  background-color: #3498db;
+}
+.color-blue .w-item span {
+  color: #3498db;
+}
+
+.w-table {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.w-table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.w-container {
+  position: relative;
+  max-width: 100%;
+  margin: 30px auto 0;
+  font-size: 0;
+  text-align: center;
+}
+.w-container .w-card {
+  cursor: pointer;
+  background-color: #fff;
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  color: #333;
+  font-size: 30px;
+  font-weight: 300;
+  margin: 0 0 30px;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.w-container .w-card .card-header {
+  overflow: hidden;
+  padding: 20px 0 0;
+}
+.w-container .w-card .card-header .w-title, .w-container .w-card .card-header .w-price {
+  position: relative;
+  z-index: 2;
+}
+.w-container .w-card .card-header .w-price {
+  font-size: 42px;
+  font-weight: 500;
+  padding: 1px 20px 20px;
+  line-height: 60px
+}
+.w-container .w-card .card-content {
+  padding: 20px;
+}
+.w-container .w-card .card-content .w-item {
+  font-size: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.w-container .w-card .card-content .w-item:last-child {
+  border-bottom: none;
+}
+.w-container .w-card .card-content .w-item span {
+  font-weight: 500;
+}
+.w-container .w-card .container-button {
+  position: relative;
+}
+.w-container .w-card .container-button .w-button {
+  position: relative;
+  display: block;
+  padding: 20px;
+  color: #fff;
+  font-weight: 400;
+  z-index: 2;
+  text-decoration: none;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.w-container .w-card .container-button:before, .w-container .w-card .container-button:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 0%;
+  height: 0%;
+  border-radius: 50%;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.w-container .w-card .container-button:after {
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.w-container .w-card .container-button:hover .w-button {
+  padding: 0px 20px 40px;
+}
+.w-container .w-card .container-button:hover:before {
+  top: -200px;
+  left: -50px;
+  width: 400px;
+  height: 400px;
+}
+.w-container .w-card .container-button:hover:after {
+  top: -200px;
+  left: -50px;
+  width: 400px;
+  height: 400px;
+}
+.w-container .w-card:hover {
+  z-index: 2;
+  margin: -20px 0 50px;
+}
+.w-container .w-card:hover .w-button {
+  opacity: 1;
+}
+
+/* Preloader */
+
+.content-preloader {
+  background:#FFF;
+  padding:20px 0 40px;
+}
+
+#preloader {
+  text-align:center;
+  z-index: 9999;
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  height:100vh;
+}
+
+#preloader-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.thecube {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto;
+  margin-top: 50px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+.thecube .cube {
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+.thecube .cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.thecube .cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2BA0C7;
+  -webkit-animation: foldthecube 2.4s infinite linear both;
+  animation: foldthecube 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+.thecube .c2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  transform: scale(1.1) rotateZ(90deg);
+}
+.thecube .c3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  transform: scale(1.1) rotateZ(180deg);
+}
+.thecube .c4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  transform: scale(1.1) rotateZ(270deg);
+}
+.thecube .c2:before {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.thecube .c3:before {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+.thecube .c4:before {
+  -webkit-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+@-webkit-keyframes foldthecube {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+        75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+        100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+@keyframes foldthecube {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+        75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+        100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}

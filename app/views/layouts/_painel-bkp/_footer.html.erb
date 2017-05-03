@@ -1,0 +1,38 @@
+    <!-- Site footer -->
+    <footer class="site-footer">
+
+      <!-- Bottom section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyright &copy; 2016 Todos os direitos reservados a <a href="<%= root_path %>">MeuPróximoTrabalho</a>.</p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook" href="http://fb.com/meuproximotrabalho" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="instagram" href="http://instagram.com/meuproximotrabalho" target="_blank"><i class="fa fa-instagram"></i></a></li>
+              <li><a class="email" href="mailto:falecom@meuproximotrabalho.com.br" target="_blank"><i class="fa fa-envelope"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- END Bottom section -->
+
+    </footer>
+    <!-- END Site footer -->
+
+
+    <!-- Back to top button -->
+    <a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>
+    <!-- END Back to top button -->
+
+    <!-- Scripts -->
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag '/assets/js/app.min.js' %>
+    <%= javascript_include_tag '/assets/js/custom.js' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js' %>
+    <%= yield(:js) %>
+  </body>
+
+</html>

@@ -1,0 +1,68 @@
+<!-- Navigation bar -->
+    <nav class="navbar">
+      <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+          <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+          <div class="logo-wrapper">
+            <a class="logo" href="<%= root_url %>"><img src="/assets/img/logo.png" alt="logo"></a>
+            <a class="logo-alt" href="<%= root_url %>"><img src="/assets/img/logo-alt.png" alt="logo-alt"></a>
+          </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <ul class="nav-menu">
+          <li>
+            <a href="<%= root_url %>">Home</a>
+          </li>
+          <li>
+            <a href="<%= trabalhos_url %>">Trabalhos</a>
+          </li>
+          <li>
+            <a href="<%= internships_url %>">Estágios</a>
+          </li>
+          <li>
+            <a href="<%= seja_premium_url %>">Seja Premium</a>
+          </li>
+          <li>
+            <a href="<%= fale_conosco_url %>">Fale conosco</a>
+          </li>
+        </ul>
+
+        <!-- User account -->
+        <div class="pull-right user-login">
+          <% if current_user %>
+            <div class="pull-right">
+              <div class="dropdown user-account">
+                <a class="dropdown-toggle" href="<%= painel_user_root_url %>" data-toggle="dropdown" style="color:#FFF">
+                  <img src="<%= current_user.avatar.url(:thumb) %>" alt="avatar">
+                  <span style="margin-left:5px"><%= current_user.name %> <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <%= link_to 'Painel', painel_user_root_url %>
+                  </li>
+                  <li><%= link_to 'Sair', destroy_user_session_url %></li>
+                </ul>
+              </div>
+            </div>
+          <% elsif current_company %>
+            <div class="pull-right">
+              <div class="dropdown user-account">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="color:#FFF">
+                  <p>Olá <%= current_company.name %>!</p>
+                </a>
+              </div>
+            </div>
+          <% else %>
+            <a class="btn btn-sm btn-primary" href="<%= tipo_usuario_url %>">Registre-se</a> ou
+            <a href="<%= new_user_session_url %>">Login</a>
+          <% end %>
+        </div>
+        <!-- END User account -->
+      </div>
+    </nav>
+    <!-- END Navigation bar -->

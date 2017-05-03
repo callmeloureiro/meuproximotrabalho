@@ -1,0 +1,102 @@
+    <header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg);">
+      <div class="container page-name">
+        <h1 class="text-center">Pesquise trabalhos</h1>
+        <p class="lead text-center">Utilize os filtros abaixo para uma seleção refinada e objetiva.</p>
+      </div>
+
+      <div class="container">
+        <%= form_tag(jobs_search_url, method: :get) do %>
+
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-6">
+              <input class="form-control" name="j" placeholder="Título da vaga ou ofertante" type="text" value="<%= params[:j] %>">
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <input class="form-control" name="c" placeholder="Cidade" type="text" value="<%= params[:c] %>">
+            </div>
+
+          </div>
+
+          <div class="button-group">
+            <div class="action-buttons">
+              <button class="btn btn-primary">Pesquisar</button>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </header>
+
+    <main>
+      <section class="no-padding-top bg-alt">
+        <div class="container">
+          <div class="row item-blocks-condensed">
+
+            <div class="col-xs-12">
+              <br>
+              <h5>Foram encontrados: <strong><%= @jobs.count if @jobs %></strong></h5>
+            </div>
+            <% if @jobs %>
+              <% @jobs.order('posted_at DESC').each do |j| %>
+                <!-- Job item -->
+                <div class="col-xs-12">
+                  <a class="item-block" href="<%= job_url(j) %>">
+                    <header>
+                      <div class="logo-container">
+                        <img src="<%= j.user.avatar.url %>" alt="" class="logo-centered">
+                      </div>
+                      <div class="hgroup">
+                        <h4><%= j.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if j.job_verify %></h4>
+                        <h5><%= j.name_offerer %></h5>
+                      </div>
+                      <div class="header-meta">
+                        <span class="location"><%= j.city %></span>
+                        <span class="label label-success">
+                          <% if j.posted_at %>
+                            <% if j.posted_at > Time.zone.now.beginning_of_day %>
+                              <%="#{time_ago_in_words(j.posted_at)} atrás"%>  
+                            <% else %>
+                              <%= j.posted_at.strftime("%d/%m/%Y") %> 
+                            <% end %>
+                          <% end %>
+                        </span>
+                      </div>
+                    </header>
+                  </a>
+                </div>
+                <!-- END Job item -->
+              <% end %>
+            <% end %>
+          </div>
+
+          <!-- Page navigation -->
+         <!--  <nav class="text-center">
+            <ul class="pagination">
+              <li>
+                <a href="#" aria-label="Previous">
+                  <i class="ti-angle-left"></i>
+                </a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li class="active"><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <i class="ti-angle-right"></i>
+                </a>
+              </li>
+            </ul>
+          </nav> -->
+          <!-- END Page navigation -->
+        </div>
+      </section>
+    </main>
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js' %>
+  <%= javascript_include_tag '/assets/js/app/main.js' %>
+<% end %>

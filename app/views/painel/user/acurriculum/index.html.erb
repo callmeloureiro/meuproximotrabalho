@@ -1,0 +1,56 @@
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1 style="font-weight:500">
+      Análise de Currículo.
+    </h1>
+    <p class="lead">Solicite uma análise do seu currículo pelos nossos especialistas.</p>
+  </div>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <a href="<%= edit_painel_user_user_url(current_user.slug) %>">
+        <div class="alert alert-warning fade in">
+          <h4>Lembre-se de estar com seu currículo do perfil atualizado!</h4>
+          Nossos especilistas irão analisar o currículo que está cadastrado no seu perfil, caso queira atualizá-lo, clique neste aviso.
+        </div>
+      </a>
+      <% if flash[:notice] %>
+        <div class="alert alert-success fade in">
+          <h4 style="margin:0"><%= flash[:notice] %></h4>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-12">
+      <%= link_to painel_user_acurriculum_index_url, class: "btn btn-block btn-lg btn-success", method: :post, data: { :disable_with => "Aguarde..." } do %>
+        <%= current_user.user_premium? ? "SOLICITAR ANÁLISE" : "Quero ser PREMIUM agora!" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row" style="margin-top:20px">
+    <div class="col-md-12">
+      <div class="panel-group m-bot20" id="accordion">
+        <% @curriculos.order('created_at DESC').each_with_index do |c, i| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#curriculo-<%= c.id %>">
+                  Solicitação #<%= c.id %> - Status: <span class="label <%= c.status == "Concluído" ? "label-success" : "label-info" %>"><%= c.status %></span>
+                </a>
+              </h4>
+            </div>
+            <div id="curriculo-<%= c.id %>" class="panel-collapse collapse <%= "in" if i == 0 %>">
+              <div class="panel-body">
+                <p><strong>Observações: </strong><%= c.obs? ? c.obs : "Aguardando análise" %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!--body wrapper end-->

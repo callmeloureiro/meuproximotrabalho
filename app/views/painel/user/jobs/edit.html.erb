@@ -1,0 +1,25 @@
+<!-- page head start-->
+<div class="page-head">
+  <h1 class="text-center">
+    Adicionar nova vaga
+  </h1>
+  <p class="lead text-center">Crie uma nova vaga, aguarde e selecione os profissionais que são compatíveis com seu perfil.</p>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <% if flash[:notice] %>
+    <div class="row noticecontainer"">
+      <div class="col-md-10 col-centered">
+        <div class="alert alert-success no-margin" role="alert">
+          <%= flash[:notice] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="col-md-10 col-centered">
+    <div class="row">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

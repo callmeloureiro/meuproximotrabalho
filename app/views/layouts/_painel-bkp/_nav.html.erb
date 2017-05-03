@@ -1,0 +1,43 @@
+<!-- Navigation bar -->
+    <nav class="navbar">
+      <div class="container">
+
+        <!-- Logo -->
+        <div class="pull-left">
+          <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
+
+          <div class="logo-wrapper">
+            <a class="logo" href="<%= root_url %>"><img src="/assets/img/logo.png" alt="logo"></a>
+            <a class="logo-alt" href="<%= root_url %>"><img src="/assets/img/logo-alt.png" alt="logo-alt"></a>
+          </div>
+
+        </div>
+        <!-- END Logo -->
+
+        <!-- Navigation menu -->
+        <ul class="nav-menu">
+          <li>
+            <a href="<%= root_url %>">Início</a>
+          </li>
+          <li>
+            <a href="#">Vagas</a>
+            <ul>
+              <li><%= link_to 'Adicionar nova', new_painel_user_job_url %></li>
+              <li><%= link_to 'Minhas vagas', painel_user_jobs_url %></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">+ <%= current_user.name %></a>
+            <ul>
+              <li><%= link_to 'Meu perfil', painel_user_users_url %></li>
+              <li><%= link_to 'Vagas que você concorre', painel_user_root_url %></li>
+              <li><a href="#">Mensagens (Em breve)</a></li>
+              <li><%= link_to 'Sair', destroy_user_session_url, {:method => :delete} %></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- END Navigation menu -->
+
+      </div>
+    </nav>
+    <!-- END Navigation bar -->

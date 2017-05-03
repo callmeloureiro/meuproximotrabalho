@@ -1,0 +1,61 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+# development:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: meuproximotrabalho_development
+#   pool: 5
+#   username: root
+#   password: geBFuckq4VX6ET
+#   host: localhost
+#   encoding: utf8mb4
+#   collation: utf8mb4_unicode_ci
+
+# # Warning: The database defined as "test" will be erased and
+# # re-generated from your development database when you run "rake".
+# # Do not set this db to the same as development or production.
+# test:
+#   adapter: mysql2
+#   encoding: utf8
+#   reconnect: false
+#   database: meuproximotrabalho_test
+#   pool: 5
+#   username: root
+#   password: geBFuckq4VX6ET
+#   host: localhost
+#   encoding: utf8mb4
+#   collation: utf8mb4_unicode_ci
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: meuproximotrabalho_development
+  pool: 5
+  username: root
+  password: geBFuckq4VX6ET
+  host: localhost
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: <%= ENV['BD_TABLE'] %>
+  pool: 5
+  username: <%= ENV['BD_USER'] %>
+  password: <%= ENV['BD_PASSWORD'] %>
+  host: <%= ENV['BD_SERVER'] %>
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+
+

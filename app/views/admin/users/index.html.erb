@@ -1,0 +1,49 @@
+  <!-- =============================================== -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Usuários
+        <!-- <small>it all starts here</small> -->
+        <small><%= link_to "<i class='fa fa-plus'></i> Adicionar novo".html_safe, new_admin_user_path, class: "btn btn-default" %></small>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Usuários Registrados</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Confirmado?</th>
+                  <th colspan="1" style="text-align: center;">Ações</th>
+                </tr>
+                <% @users.each do |u| %>
+                  <tr>
+                    <td><%= u.id %></td>
+                    <td><%= u.name %></td>
+                    <td><%= u.email %></td>
+                    <td><%= u.confirmed? %></td>
+                    <td style="text-align: center;"><%= link_to "Visualizar", user_profile_url(u.id) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      <!-- /.box -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

@@ -1,0 +1,17 @@
+<%= devise_error_messages! %>
+<div class="login-block">
+  <h2>Reenviar confirmação</h2>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="ti-email"></i></span>
+        <%= f.email_field :email, autofocus: true, value: "#{current_user.email if params[:unconfirmed]}", class: "form-control", placeholder: "Email" %>
+      </div>
+    </div>
+    <%= f.submit "Reenviar", class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>
+
+<div class="login-links">
+  <%= render "users/shared/links" %>
+</div>

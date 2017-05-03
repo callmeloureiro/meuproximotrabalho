@@ -1,0 +1,41 @@
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1><%= @job.title %></h1>
+    <h4><%= @subscribers.count %> inscritos.</h4>
+  </div>
+</div>
+<!-- page head end-->
+<div class="wrapper">
+  <div class="col-md-10 col-centered">
+    <div class="row">
+      <div class="panel-group m-bot20" id="accordion">
+        <% @subscribers.each_with_index do |s, i| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#<%= s.name.parameterize %>">
+                <%= s.name %>
+                </a>
+              </h4>
+            </div>
+            <div id="<%= s.name.parameterize %>" class="panel-collapse collapse <%= "in" if i == 0 %>">
+              <div class="panel-body">
+                <div class="text-right" style="float:right">
+                  <a href="<%= user_profile_url(s.slug) %>" class="btn btn-gray btn-sm">Visitar perfil</a>
+                </div>
+                <img src="<%= s.avatar %>" alt="" width="150" style="float:left;margin-right:10px">
+                <%= s.office %>
+                <% if s.about? %>
+                  <p><%= s.about %></p>
+                <% else %>
+                  <p>Sem informações sobre o candidato.</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

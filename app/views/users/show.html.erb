@@ -1,0 +1,124 @@
+<header class="page-header bg-img" style="background-image: url(/assets/img/bg-banner1.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <img src="<%= @user.avatar.url %>" alt="">
+      </div>
+
+      <div class="col-xs-12 col-sm-8 header-detail">
+        <div class="hgroup">
+          <h1><%= @user.name %></h1>
+          <h3><%= @user.office %></h3>
+        </div>
+        <hr>
+        <p class="lead"><%= @user.about %></p>
+        <ul class="details">
+          <li>
+            <i class="fa fa-map-marker"></i>
+            <span><%= @user.address %> - <%= @user.number %> - <%= @user.city %>/<%= @user.state %></span>
+          </li>
+          
+          <% if @user.website? %>
+            <li>
+              <i class="fa fa-globe"></i>
+              <a href="<%= @user.website %>" target="_blank"><%= @user.website %></a>
+            </li>
+          <% end %>
+
+          <% if @user.company_name? %>
+            <li>
+              <i class="fa fa-building"></i>
+              <span><%= @user.company_name %></span>
+            </li>
+          <% end %>
+
+          <li>
+            <i class="fa fa-birthday-cake"></i>
+            <span><%= @user.date_of_birth %></span>
+          </li>
+
+          <li>
+            <i class="fa fa-phone"></i>
+            <span><%= @user.phone %></span>
+          </li>
+
+          <li>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <ul class="social-icons">
+        <% unless @user.facebook.blank? %>
+          <li><a href="<%= @user.facebook %>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <% end %>
+        <% unless @user.github.blank? %>
+          <li><a href="<%= @user.github %>" target="_blank"><i class="fa fa-github"></i></a></li>
+        <% end %>
+        <% unless @user.googleplus.blank? %>
+          <li><a href="<%= @user.googleplus %>" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+        <% end %>
+        <% unless @user.twitter.blank? %>
+          <li><a href="<%= @user.twitter %>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <% end %>
+        <% unless @user.linkedin.blank? %>
+          <li><a href="<%= @user.linkedin %>" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <% end %>
+        <% unless @user.pinterest.blank? %>
+          <li><a href="<%= @user.pinterest %>" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+        <% end %>
+        <% unless @user.instagram.blank? %>
+          <li><a href="<%= @user.instagram %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+        <% end %>
+      </ul>
+
+      <div class="action-buttons">
+        <% if @user.cv_pdf? %>
+          <a class="btn btn-gray" href="<%= @user.cv_pdf.url(:default, timestamp: false) %>">Baixar CV</a>
+        <% end %>
+        <a class="btn btn-success" href="mailto:<%= @user.email %>">Enviar email</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<% if @user.type_user > 0 %>
+  <section id="open-positions" class="">
+    <div class="container">
+      <header class="section-header">
+        <span>últimas vagas</span>
+        <h2>postadas</h2>
+      </header>
+      <div class="row">
+        <% @user.jobs.aproved.order('posted_at DESC').each do |j| %>
+          <div class="col-xs-12">
+            <a class="item-block" href="<%= job_url(j) %>">
+              <header>
+                <div class="logo-container">
+                  <img src="<%= j.user.avatar.url %>" alt="" class="logo-centered">
+                </div>
+                <div class="hgroup">
+                  <h4><%= j.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if j.job_verify %></h4>
+                  <h5><%= j.name_offerer %></h5>
+                </div>
+                <div class="header-meta">
+                  <span class="location"><%= j.city %></span>
+                  <span class="label label-success">
+                    <% if j.posted_at > Time.now.beginning_of_day %>
+                      <%="#{time_ago_in_words(j.posted_at)} atrás"%>  
+                    <% else %>
+                      <%= j.posted_at.strftime("%d/%m/%Y") %> 
+                    <% end %>
+                  </span>
+                </div>
+              </header>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

@@ -1,0 +1,107 @@
+<div id="preloader" style="display:none">  
+  <div id="preloader-center">
+    <div class="content-preloader">
+      <div class="thecube">
+        <div class="cube c1"></div>
+        <div class="cube c2"></div>
+        <div class="cube c4"></div>
+        <div class="cube c3"></div>
+      </div>
+
+      <div class="textedit">
+        <h2 style="line-height:40px;margin-top:30px">Aguarde um instante! <br>Estamos processando seu pedido.</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1 style="font-weight:500">
+      Minha assinatura
+    </h1>
+    <p class="lead">Escolha o plano que mais te agrada :D</p>
+  </div>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <section class="panel">
+        <div class="alert alert-info fade in text-center">
+          <% unless params[:not_premium] %>
+          <h4 style="margin:0"><%= current_user.user_premium? ? "Sua assinatura expira dia <strong>#{current_user.premium_expires.strftime("%d/%m/ %Y")}</strong>".html_safe : "Você está utilizando <strong>GRATUITAMENTE</strong>, faça um upgrade já!".html_safe %></h4>
+          <% else %>
+            <h4 style="margin:0">Para ter acesso a essa funcionalidade, você precisa de um plano <strong>PREMIUM.</strong></h4>
+          <% end %>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="w-table">
+        <div class="w-table-cell">
+          <div class="w-container">
+            <% @premiuns.order('created_at DESC').each do |p| %>
+              <%= link_to painel_user_user_checkout_url(p), class:"btnpagseguro" do %>
+                <div class="w-card color-blue">
+                  <div class="card-header">
+                    <div class="w-title">
+                      <%= p.days %> dias
+                    </div>
+                    <div class="w-price">
+                      <%= number_to_currency(p.price) %>
+                    </div>
+                    <div class="container-button">
+                      <div class="w-button">
+                        Eu quero esse!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-content">
+                    <div class="w-item">
+                      <span>Análise</span> de currículo 
+                    </div>
+                    <div class="w-item">
+                      <span>Chat</span> com consultores
+                    </div>
+                    <div class="w-item">
+                      <span>Gerador</span> de currículo 
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h3>Seus últimos pedidos</h3>
+    </div>
+    <div class="col-md-12" style="margin-top:20px">
+      <div class="panel-group m-bot20" id="accordion">
+        <% current_user.orders.order('id DESC').limit(5).each do |o| %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                Pedido #<%= o.id %> - Status: <%= o.order_status %>
+              </h4>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<!--body wrapper end-->
+
+<% content_for(:js) do %>
+  <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js">
+</script>
+<% end %>

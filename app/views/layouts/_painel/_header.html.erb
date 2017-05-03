@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" href="javascript:;" type="image/png">
+    <title>Meu Próximo Trabalho - Painel</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= csrf_meta_tags %>
+    <!--right slidebar-->
+    <link href="/assets/panel/css/slidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <!--switchery-->
+    <link href="/assets/panel/js/switchery/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--common style-->
+    <link href="/assets/panel/css/style.css" rel="stylesheet">
+    <link href="/assets/panel/css/style-responsive.css" rel="stylesheet">
+
+    <%= yield(:css) %>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/assets/panel/js/html5shiv.js"></script>
+    <script src="/assets/panel/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="sticky-header painel-app">
+    <section>
+      <!-- sidebar left start-->
+      <div class="sidebar-left">
+        <!--responsive view logo start-->
+        <div class="logo dark-logo-bg visible-xs-* visible-sm-*">
+          <a href="<%= root_url %>">
+            <!-- <img src="/assets/panel/img/logo-icon.png" alt=""> -->
+            <!--<i class="fa fa-maxcdn"></i>-->
+            <span class="brand-name">MeuPróximoTrabalho</span>
+          </a>
+        </div>
+        <!--responsive view logo end-->
+        <div class="sidebar-left-info">
+          <!-- visible small devices start-->
+          <div class=" search-field">  </div>
+          <!-- visible small devices end-->
+          <!--sidebar nav start-->
+          <ul class="nav nav-pills nav-stacked side-navigation">
+            <li>
+              <h3 class="navigation-title">Painel do usuário</h3>
+            </li>
+            <li class="">
+              <a href="<%= painel_user_root_url %>">
+                <i class="fa fa-home"></i> <span>Início</span>
+              </a>
+            </li>
+            <li class="menu-list">
+              <a href="#">
+                <i class="fa fa-newspaper-o"></i> <span>Vagas</span>
+              </a>
+              <ul style="display: none;" class="child-list">
+                <li><a href="<%= search_url %>"> Vagas disponíveis</a></li>
+                <!-- <li><a href="#"> Vagas que concorro</a></li> -->
+                <% if current_user.type_user > 0 %>
+                  <li><a href="<%= painel_user_jobs_url %>">Minhas vagas</a></li>
+                  <li><a href="<%= new_painel_user_job_url %>"> Adicionar vaga</a></li>
+                <% end %>
+              </ul>
+            </li>
+            <li>
+              <a href="<%= edit_painel_user_user_url(current_user) %>">
+                <i class="fa fa-user"></i> <span>Perfil</span>
+              </a>
+            </li>
+            <% if current_user.type_user != 2 %>
+              <li>
+                <a href="<%= painel_user_premium_url %>">
+                  <i class="fa fa-star"></i> <span>Minha assinatura</span>
+                </a>
+              </li>
+              <li>
+                <a href="<%= painel_user_acurriculum_index_url %>">
+                  <i class="fa fa-file-pdf-o"></i>
+                  <span>Análise de Currículo</span>
+                </a>
+              </li>
+              <li>
+                <a href="<%= painel_user_gcurriculum_index_url %>">
+                  <i class="fa fa-file-pdf-o"></i>
+                  <span>Criar Currículo</span>
+                </a>
+              </li>
+            <% end %>
+            <li>
+              <h3 class="navigation-title">Extra</h3>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-building-o"></i> <span>Quem somos</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:falecom@meuproximotrabalho.com.br">
+                <i class="fa fa-envelope-o"></i> <span>Contato</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" data-toggle="modal" data-target="#modalmsg">
+                <i class="fa fa-heart"></i>
+                <span>Conte-nos sua experiência</span>
+              </a>
+            </li>
+          </ul>
+          <!--sidebar nav end-->
+        </div>
+      </div>
+      <!-- sidebar left end-->
+      <!-- body content start-->
+      <div class="body-content" style="min-height: 1200px;">
+        <!-- header section start-->
+        <div class="header-section">
+          <!--logo and logo icon start-->
+          <div class="logo dark-logo-bg hidden-xs hidden-sm">
+            <a href="<%= root_url %>">
+              <!-- <img src="/assets/panel/img/logo-icon.png" alt=""> -->
+              <!--<i class="fa fa-maxcdn"></i>-->
+              <span class="brand-name">MeuPróximoTrabalho</span>
+            </a>
+          </div>
+          <div class="icon-logo dark-logo-bg hidden-xs hidden-sm">
+            <a href="index.html">
+              <!-- <img src="/assets/panel/img/logo-icon.png" alt=""> -->
+              <!--<i class="fa fa-maxcdn"></i>-->
+            </a>
+          </div>
+          <!--logo and logo icon end-->
+          <!--toggle button start-->
+          <a class="toggle-btn"><i class="fa fa-outdent"></i></a>
+          <!--toggle button end-->
+          <div class="notification-wrap">
+            <!--left notification start-->
+            <!--left notification end-->
+            <!--right notification start-->
+            <div class="right-notification">
+              <ul class="notification-menu">
+                <li>
+                  <a href="javascript:;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <img src="<%= current_user.avatar.url %>" alt=""><%= current_user.name %>
+                  <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu purple pull-right">
+                    <li><a href="<%= edit_painel_user_user_url(current_user) %>">Perfil</a></li>
+                    <li><a href="#">Mensagens (em breve)</a></li>
+                    <li>
+                      <%= link_to destroy_user_session_url do %>
+                        <i class="fa fa-sign-out pull-right"></i> Sair
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <!--right notification end-->
+          </div>
+        </div>
+        <!-- header section end-->
+

@@ -1,0 +1,356 @@
+<header class="page-header bg-img size-lg" style="background-image: url(/assets/img/bg-banner2.jpg)">
+  <% if @job.owner && current_user %>
+      <div class="container">
+        <a href="<%= edit_painel_user_user_url(current_user.slug) %>">
+          <div class="alert alert-warning" role="alert">
+            Esta vaga utiliza seu perfil para concorrer a ela... Você está com o perfil <strong>atualizado</strong>? Caso queira atualizar, basta clicar aqui.
+          </div>
+        </a>
+      </div>
+  <% end %>
+  <% unless @job.posted && @job.posted_at %>
+    <div class="container">
+      <div class="alert alert-success" role="alert">
+        Esta vaga foi agendada e está aguardando ser postada.
+      </div>
+    </div>
+  <% end %>
+  <div class="container">
+    <% if @job.posted_at %>
+      <time datetime="<%= @job.posted_at %>" style="float:right">
+        <% if @job.posted_at > Time.zone.now.beginning_of_day %>
+          <%="#{time_ago_in_words(@job.posted_at)} atrás"%>  
+        <% else %>
+          <%= @job.posted_at.strftime("%d/%m/%Y") %> 
+        <% end %>
+      </time>
+    <% end %>
+    <div class="header-detail">
+      <%= image_tag(@job.user.avatar.url, class: "logo-job") %>
+      <div class="hgroup">
+        <h1><%= @job.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if @job.job_verify %></h1>
+        <h3><%= @job.name_offerer %></h3>
+      </div>
+      <hr>
+      <% if @job.user.type_user > 0 %>
+        <p>Vaga postada por: <a href="<%= user_profile_url(@job.user.slug) %>"><%= @job.user.name %></a></p>
+        <hr>
+      <% end %>
+      <p class="lead"><%= @job.description.html_safe %></p>
+      <ul class="details cols-3">
+        <% if @job.workload? %>
+        <li>
+          <i class="fa fa-clock-o"></i>
+          <span><%= @job.workload %></span>
+        </li>
+        <% end %>
+
+        <% if @job.price? %>
+        <li>
+          <i class="fa fa-money"></i>
+          <span><%= number_to_currency(@job.price) %></span>
+        </li>
+        <% end %>
+
+        <% if @job.type_offer? %>
+        <li>
+          <i class="fa fa-briefcase"></i>
+          <span><%= @job.type_offer %></span>
+        </li>
+        <% end %>
+
+        <% if @job.experience? %>
+        <li>
+          <i class="fa fa-flask"></i>
+          <span><%= @job.experience %> - <%= @job.contract %></span>
+        </li>
+        <% end %>
+        
+        <% if @job.occupation? && @job.office? %>
+        <li>
+          <i class="fa fa-certificate"></i>
+          <a href="#"><%= "#{@job.occupation} / #{@job.office}" %></a>
+        </li>
+        <% end %>
+      </ul>
+      <% if @job.address? %>
+        <p>
+          <i class="fa fa-map-marker"></i>
+          <span><%= "#{@job.address} / #{@job.number} - #{@job.district} - #{@job.city}/#{@job.state}".html_safe %></span>
+          <% unless @job.complement.blank? %>
+            <span> / <%= @job.complement %></span>
+          <% end %>
+        </p>
+      <% else %>
+        <p>
+          <i class="fa fa-map-marker"></i>
+          <span><%= "#{@job.city}/#{@job.state}".html_safe %></span>
+        </p>
+      <% end %>
+
+      <div class="button-group">
+        <ul class="social-icons">
+          <li class="title">Compartilhe</li>
+          <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<%= job_url(@job.slug) %>"><i class="fa fa-facebook"></i></a></li>
+          <li><a class="google-plus" href="https://plus.google.com/share?url=<%= job_url(@job.slug) %>"><i class="fa fa-google-plus"></i></a></li>
+          <li><a class="twitter" href="https://twitter.com/home?status=<%= job_url(@job.slug) %>"><i class="fa fa-twitter"></i></a></li>
+          <li><a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=<%= job_url(@job.slug) %>&title=<%= @job.title %>"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+
+        <% if current_user %>
+          <% if current_user.type_user != 2 %>
+            <% if current_user.status? %>
+              <% if @job.owner? %>
+                <% if current_user.cv_pdf? %>
+                  <div class="action-buttons">
+                    <% if current_user && current_user.jobs_applies.exists?(@job.id) %>
+                      <%= link_to 'Retirar-se da vaga', job_remove_url(@job), :method => :delete, :class => "btn btn-danger", data: { disable_with: "Aguarde..." } %>
+                    <% else %>
+                      <%= link_to 'Clique para candidatar-se', job_apply_url(@job), :method => :post, :class => "btn btn-success", data: { disable_with: "Aguarde..." } %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="action-buttons">
+                    <a href="<%= edit_painel_user_user_url(current_user.slug) %>" class="btn btn-warning">Você precisa cadastrar seu CV no perfil para concorrer a esta vaga</a>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalsendemail" id="sendcvbtn">
+                    Clique para candidatar-se
+                  </button>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="action-buttons">
+                <button type="button" class="btn btn-danger" disabled>
+                  Infelizmente você não pode usar esta função.
+                </button>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="action-buttons">
+            <a class="btn btn-success" href="<%= new_user_session_url %>">
+              Você precisa fazer login para candidatar-se
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Job detail -->
+  <section>
+    <div class="container">
+      <% if @job.responsibilities? %>
+      <br>
+      <div class="responsibilities">
+        <h4>Responsabilidades</h4>
+        <%= @job.responsibilities.html_safe %>
+      </div>
+      <% end %>
+      <% if @job.requirements? %>
+      <br>
+      <div class="qualifications">
+        <h4>Requisitos</h4>
+        <%= @job.requirements.html_safe %>
+      </div>
+      <% end %>
+      <% if @job.differential? %>
+      <br>
+      <div class="differential">
+        <h4>Diferenciais</h4>
+        <%= @job.differential.html_safe %>
+      </div>
+      <% end %>
+    </div>
+  </section>
+  <!-- END Job detail -->
+
+  <!-- Button trigger modal -->
+
+  <section id="open-positions" class="">
+    <div class="container">
+      <header class="section-header">
+        <span>Veja também</span>
+        <h2>mais vagas</h2>
+      </header>
+      <div class="row">
+        <% unless @job.contract == "Estágio" %>
+          <% @jobs.where.not('contract LIKE ?', "%estagio%").limit(5).order('posted_at DESC').each do |j| %>
+            <div class="col-xs-12">
+              <a class="item-block" href="<%= job_url(j) %>">
+                <header>
+                  <div class="logo-container">
+                    <img src="<%= j.user.avatar.url %>" alt="" class="logo-centered">
+                  </div>
+                  <div class="hgroup">
+                    <h4><%= j.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if j.job_verify %></h4>
+                    <h5><%= j.name_offerer %></h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location"><%= j.city %></span>
+                    <span class="label label-success">
+                      <% if j.posted_at > Time.now.beginning_of_day %>
+                        <%="#{time_ago_in_words(j.posted_at)} atrás"%>  
+                      <% else %>
+                        <%= j.posted_at.strftime("%d/%m/%Y") %> 
+                      <% end %>
+                    </span>
+                  </div>
+                </header>
+              </a>
+            </div>
+          <% end %>
+        <% else %>
+          <% @jobs.where('contract LIKE ?', "%estagio%").limit(5).order('posted_at DESC').each do |j| %>
+            <div class="col-xs-12">
+              <a class="item-block" href="<%= internship_url(j) %>">
+                <header>
+                  <div class="logo-container">
+                    <img src="<%= j.user.avatar.url %>" alt="" class="logo-centered">
+                  </div>
+                  <div class="hgroup">
+                    <h4><%= j.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if j.job_verify %></h4>
+                    <h5><%= j.name_offerer %></h5>
+                  </div>
+                  <div class="header-meta">
+                    <span class="location"><%= j.city %></span>
+                    <span class="label label-success">
+                      <% if j.posted_at > Time.now.beginning_of_day %>
+                        <%="#{time_ago_in_words(j.posted_at)} atrás"%>  
+                      <% else %>
+                        <%= j.posted_at.strftime("%d/%m/%Y") %> 
+                      <% end %>
+                    </span>
+                  </div>
+                </header>
+              </a>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalsendemail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Envie seu currículo</h4>
+      </div>
+        <%= form_tag '/email/sendcv', multipart: true, :id => 'formsendcv' do %>
+
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Seu nome</label>
+                <input type="text" class="form-control" name="name" value="<%= "#{current_user.name}" if current_user %>" required>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Seu email</label>
+                <input type="text" class="form-control" name="email" value="<%= "#{current_user.email}" if current_user %>" required>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Seu telefone</label>
+                <input type="text" class="form-control telefone" name="telphone" value="<%= "#{current_user.phone}" if current_user %>" required>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Observações (opcional)</label>
+                <textarea rows="2" class="form-control" name="obs"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Anexe seu currículo</label>
+                <input type="file" class="form-control" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf" required>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="sender" value="<%= @job.email %>">
+        <input type="hidden" name="subject" value="<%= @job.title %>">
+        <input type="hidden" name="jobid" value="<%= @job.id %>">
+        <%= button_tag "Enviar", class: "btn btn-success", id: "enviar" %>
+        <button id="status" type="button" class="btn btn btn-success" style="display:none" disabled>Enviando...</button>
+      </div>
+        <% end %>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<% unless current_user %>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+      <div class="modal-dialog vertical-align-center">
+        <div class="modal-content verticaly">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <br>
+            <div class="text-center">
+              <h3>Oi, tudo bem?</h3>
+              <p><big><strong>Vimos que você ainda não está cadastrado no nosso site :/</strong></big></p>
+              <p>Cadastre-se clicando no botão abaixo e tenha acesso em primeira mão a dicas, novidades e vagas!</p>
+              <p>... é rapidinho e totalmente gratuito :D</p>
+              <br>
+              <a href="<%= new_user_session_url %>" class="btn btn-primary">Fazer login</a>
+              <a href="<%= tipo_usuario_url %>" class="btn btn-success">Clique e cadastre-se</a>
+              <br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<% content_for(:css) do %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<% end %>
+
+<% content_for(:js) do %>
+  <% unless current_user %>
+    <script type="text/javascript">
+      $(window).load(function(){
+          $('#myModal').modal('show');
+      });
+    </script>
+  <% end %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+  <script>
+    jQuery("input.telefone")
+        .mask("(99) 9999-9999?9")
+        .focusout(function (event) {
+            var target, phone, element;
+            target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+            phone = target.value.replace(/\D/g, ''); //Remove tudo o que não é dígito
+            element = $(target);
+            element.unmask();
+            if(phone.length > 10) {
+                element.mask("(99) 99999-999?9");
+            } else {
+                element.mask("(99) 9999-9999?9");
+            }
+});
+  </script>
+<% end %>

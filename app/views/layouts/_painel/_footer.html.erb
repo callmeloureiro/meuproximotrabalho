@@ -1,0 +1,124 @@
+        <!-- Modal -->
+        <div class="modal fade" id="modalmsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <%= form_tag('/email/sendmsg', :method => :post, id: "formsendmsg") do %>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Conte-nos sua experiência :D</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <input type="text" name="name" value="<%= current_user.name %>" placeholder="Seu nome" class="form-control input-lg" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="email" value="<%= current_user.email %>" placeholder="Seu email" class="form-control input-lg" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="subject" placeholder="Assunto" class="form-control input-lg" required>
+                  </div>
+                  <div class="form-group">
+                    <textarea name="message" id="" cols="30" rows="5" class="form-control input-lg" placeholder="Mensagem" required></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" id="enviar" class="btn btn-primary">Enviar</button>
+                  <button type="button" id="status" class="btn btn-primary" style="display:none" disabled>Enviando...</button>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modalpremium" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Escolha um plano.</h4>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--footer section start-->
+        <footer>
+          Feito com muito amor. Um produto <a href="http://fabricadeideias.co" target="_blank">FábricaDeIdeias.co</a>
+        </footer>
+        <!--footer section end-->
+      </div>
+      <!-- body content end-->
+    </section>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <%= javascript_include_tag 'application' %>
+    <script src="/assets/panel/js/jquery-1.10.2.min.js"></script>
+    <script src="/assets/panel/js/jquery-migrate.js"></script>
+    <script src="/assets/panel/js/bootstrap.min.js"></script>
+    <script src="/assets/panel/js/modernizr.min.js"></script>
+    <!--right slidebar-->
+    <script src="/assets/panel/js/slidebars.min.js"></script>
+    <!--switchery-->
+    <script src="/assets/panel/js/switchery/switchery.min.js"></script>
+    <script src="/assets/panel/js/switchery/switchery-init.js"></script>
+    <!--Sparkline Chart-->
+    <script src="/assets/panel/js/sparkline/jquery.sparkline.js"></script>
+    <script src="/assets/panel/js/sparkline/sparkline-init.js"></script>
+    <!--common scripts for all pages-->
+    <script src="/assets/panel/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-44376143-10', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <script type="text/javascript">
+      window.smartlook||(function(d) {
+      var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+      var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+      c.charset='utf-8';c.src='//rec.getsmartlook.com/recorder.js';h.appendChild(c);
+      })(document);
+      smartlook('init', '6998c3ae452439fca33d6fd86246fa735540549c');
+      <% if current_user %>
+        smartlook('tag', 'id', '<%= current_user.id %>');
+        smartlook('tag', 'name', '<%= current_user.name %>');
+        smartlook('tag', 'email', '<%= current_user.email %>');
+      <% end %>
+    </script>
+
+    <%# if current_user && current_user.user_premium %>
+      <!-- Start of Async Drift Code -->
+      <script>
+      !function() {
+        var t;
+        if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+        t.methods = [ "identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+        t.factory = function(e) {
+          return function() {
+            var n;
+            return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+          };
+        }, t.methods.forEach(function(e) {
+          t[e] = t.factory(e);
+        }), t.load = function(t) {
+          var e, n, o, r;
+          e = 3e5, r = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+          o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + t + ".js", 
+          n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+        });
+      }();
+      drift.SNIPPET_VERSION = '0.2.0'
+      drift.load('zrauvgx9gyyz')
+      </script>
+      <!-- End of Async Drift Code -->
+    <%# end %>
+
+    <%= yield(:js) %>
+  </body>
+  </html>

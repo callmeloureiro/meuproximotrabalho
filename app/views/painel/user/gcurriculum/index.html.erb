@@ -1,0 +1,169 @@
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1 style="font-weight:500">
+      Criar currículo.
+    </h1>
+    <p class="lead">Solicite um novo currículo aos nossos especialistas.</p>
+  </div>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-10 col-centered">
+      <div class="row">
+        <div class="col-md-12">
+          <% if flash[:notice] %>
+            <div class="alert alert-success fade in">
+              <h4 style="margin:0"><%= flash[:notice] %></h4>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%= form_for(painel_user_gcurriculum_index_url, method: :post) do %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" name="nome" placeholder="Nome" value="<%= current_user.name %>" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <input type="text" placeholder="Naturalidade" name="naturalidade" class="form-control input-lg" required>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" placeholder="Estado civil" name="civil" class="form-control input-lg" required>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" placeholder="Idade" name="idade" class="form-control input-lg" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-8">
+                  <input type="text" class="form-control input-lg" name="endereco" placeholder="Endereço" value="<%= current_user.address %>" required>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" placeholder="Número" name="numero" class="form-control input-lg" value="<%= current_user.number %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input type="text" placeholder="Complemento" name="complemento" class="form-control input-lg" value="<%= current_user.complement %>" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <input type="text" class="form-control input-lg" name="bairro" placeholder="Bairro" value="<%= current_user.district %>" required>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control input-lg" name="cidade" placeholder="Cidade" value="<%= current_user.city %>" required>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control input-lg" name="estado" placeholder="Estado" value="<%= current_user.state %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-lg" name="telefone" placeholder="Telefone(s)" value="<%= current_user.phone %>" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control input-lg" name="email" placeholder="Email" value="<%= current_user.email %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea id="" cols="30" rows="5" name="objetivo" placeholder="Objetivo, Exemplo: Cargo de Analista Financeiro" class="form-control input-lg" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea name="formacao" id="" cols="30" rows="5" placeholder="Formação, Exemplo: Pós-graduado em Gestão Financeira. IBMEC, conclusão em 2006." class="form-control input-lg" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea name="experiencias" id="" cols="30" rows="5" placeholder="Experiências profissionais, Exemplo: 2004-2008 – Rocha & Rodrigues Investimentos Cargo: Analista Financeiro." class="form-control input-lg" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea name="qualificacoes" id="" cols="30" rows="5" placeholder="Qualificações e atividades complementares, Exemplo: Inglês – Fluente (Number One, 7 anos, conclusão em 2001)." class="form-control input-lg" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <textarea name="informacoes" id="" cols="30" rows="5" placeholder="Informações adicionais, Exemplo: Disponibilidade para mudança de cidade ou estado." class="form-control input-lg" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          <%= button_tag class: "btn btn-block btn-lg btn-success", method: :post, data: { :disable_with => "Aguarde..." } do %>
+              <%= current_user.user_premium? ? "SOLICITAR UM CURRÍCULO" : "Quero ser PREMIUM agora!" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+          <div class="panel-group m-bot20" id="accordion">
+            <% @curriculos.order('created_at DESC').each_with_index do |c, i| %>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#curriculo-<%= c.id %>">
+                      Solicitação #<%= c.id %> - Status: <span class="label <%= c.status == "Concluído" ? "label-success" : "label-info" %>"><%= c.status %></span>
+                    </a>
+                  </h4>
+                </div>
+                <div id="curriculo-<%= c.id %>" class="panel-collapse collapse <%= "in" if i == 0 %>">
+                  <div class="panel-body">
+                    <p><strong>Mensagem: </strong><%= c.obs? ? c.obs : "Aguardando" %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--body wrapper end-->

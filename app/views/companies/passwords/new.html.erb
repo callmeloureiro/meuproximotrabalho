@@ -1,0 +1,27 @@
+<%= devise_error_messages! %>
+<div class="login-block">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="ti-email"></i></span>
+        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+      </div>
+    </div>
+    <hr class="hr-xs">
+    <%= f.submit "Recuperar senha", class: "btn btn-primary btn-block" %>
+    <!-- <div class="login-footer">
+      <h6>Or login with</h6>
+      <ul class="social-icons">
+        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+    </div> -->
+  <% end %>
+</div>
+
+<div class="login-links">
+<!--         <a class="pull-left" href="user-forget-pass.html">Forget Password?</a>
+  <a class="pull-right" href="user-register.html">Register an account</a> -->
+  <%= render "companies/shared/links" %>
+</div>

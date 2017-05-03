@@ -1,0 +1,203 @@
+<%= form_for([:painel, :user, @job], :html => { :multipart => true }) do |f| %>
+
+  <% unless @job.errors.messages.blank? %>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        <% @job.errors.messages.each do |title, teste| %>
+          $('.form-control[name="job[<%= title %>]"]').parent().addClass('has-error').append("<p class='help-block'>Este campo é obrigatório.</p>")
+        <% end %>
+      })
+    </script>
+  <% end %>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <section class="panel">
+        <header class="panel-heading">
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-3">
+            <p>Imagem para vaga: </p>
+            <% unless @job.logo.blank? %>
+              <%= f.file_field :logo, class: "dropify", :data => { :"default-file" => @job.logo.url(:original, timestamp: false) } %>
+            <% else %>
+              <%= f.file_field :logo, class: "dropify", :data => { :"default-file" => current_user.avatar.url(:original, timestamp: false) } %>
+            <% end %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-9">
+            <%= f.text_field :title, class: "form-control input-lg", placeholder: "Título (obrigatório)", required: true %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-9">
+            <%= f.text_field :name_offerer, class: "form-control input-lg", placeholder: "Ofertante da vaga (obrigatório)", required: true %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-9">
+            <%= f.text_field :email, class: "form-control input-lg", placeholder: "Email (obrigatório)", required: true %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-9">
+            <div class="checkbox">
+              <label for="job_owner">
+              <%= f.check_box :owner %>
+              Caso marque esta opção, o candidato usará o seu perfil do meuproximotrabalho.com.br para se candidatar, caso contrário, será enviado a pretenção no email cadastrado logo acima.</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_field :zipcode, class: "form-control input-lg", placeholder: "CEP" %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-4">
+            <%= f.text_field :city, class: "form-control input-lg", placeholder: "Cidade", required: true %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-4">
+            <%= f.text_field :state, class: "form-control input-lg", placeholder: "Estado", required: true %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-4">
+            <%= f.text_field :district, class: "form-control input-lg", placeholder: "Bairro" %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-9">
+            <%= f.text_field :address, class: "form-control input-lg", placeholder: "Endereço" %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-3">
+            <%= f.text_field :number, class: "form-control input-lg", placeholder: "Número" %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_field :complement, class: "form-control input-lg", placeholder: "Complemento" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-6">
+            <%= f.select :workload, ['Integral', 'Manhã', 'Tarde', 'Noite', 'Outros'], {:include_blank => "Selecione a jornada"}, {:class => "form-control input-lg"} %>
+          </div>
+          <div class="form-group col-xs-12 col-sm-6">
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <%= f.text_field :price, class: "form-control input-lg", placeholder: "Valor", value: number_to_currency(@job.price, :unit => "") %>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.select :type_offer, ['Presencial', 'Remoto', 'Outros'], {:include_blank => "Tipo de oferta"}, {:class => "form-control input-lg"} %>
+          </div>
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.select :experience, ['Não necessita', 'Júnior', 'Pleno', 'Sênior', 'Outros'], {:include_blank => "Experiência desejada"}, {:class => "form-control input-lg"} %>
+          </div>
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.select :contract, ['Autônomo', 'Cooperado', 'Efetivo - CLT', 'Estágio', 'Prestador de Serviço (PJ)', 'Temporário', 'Trainee','Outros'], {:include_blank => "Selecione o tipo de contrato"}, {:class => "form-control input-lg"} %>
+          </div>
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.text_field :scholarity, class: "form-control input-lg", placeholder: "Escolaridade" %>
+          </div>
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.text_field :occupation, class: "form-control input-lg", placeholder: "Área de atuação" %>
+          </div>
+          <div class="form-group col-xd-12 col-sm-4">
+            <%= f.text_field :office, class: "form-control input-lg", placeholder: "Cargo" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <div class="checkbox">
+              <%= f.check_box :schedule_type %>
+              <label for="job_schedule_type">Agendar</label>
+            </div>
+            <label for="">
+              Dia / Mês / Ano<br>
+              <%= f.date_select :schedule_time, :default => {:day => DateTime.now.day,:month => DateTime.now.month, :year => DateTime.now.year} %>
+            </label> <br>
+            <label for="">
+              Hora / Minuto <br>
+              <%= f.time_select :schedule_time, :ignore_date => true, :default => {:hour => DateTime.now.hour, :minute => DateTime.now.minute} %>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+          <h2 style="margin:0">Descrição</h2>
+          <small>Campo descrição obrigatório</small>
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_area :description, class:"note-editor" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+          <h2 style="margin:0">Responsabilidades</h2>
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_area :responsibilities, class:"note-editor" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+          <h2 style="margin:0">Requisitos</h2>
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_area :requirements, class:"note-editor" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <header class="panel-heading">
+          <h2 style="margin:0">Diferenciais</h2>
+        </header>
+        <div class="panel-body">
+          <div class="form-group col-xs-12 col-sm-12">
+            <%= f.text_area :differential, class:"note-editor" %>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-body">
+          <%= f.submit :class => "btn btn-success btn-xl btn-round btn-block" %>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :css do %>
+  <link rel="stylesheet" href="/assets/panel/js/summernote/dist/summernote.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.1/css/dropify.min.css">
+<% end %>
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.1/js/dropify.min.js' %>
+  <%= javascript_include_tag '/assets/panel/js/summernote/dist/summernote.min.js' %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js' %>
+  <%= javascript_include_tag '/assets/js/painel/jobs_page.js' %>
+
+<% end %>

@@ -1,0 +1,163 @@
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1 style="font-weight:500">
+      Bem vindo <%= current_user.name %>!
+    </h1>
+    <p class="lead">Tudo bem com você? Espero que dê tudo certo.</p>
+  </div>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <div class="row">
+    <% if params[:pagseguro_retorno] %>
+      <div class="col-md-12">
+        <div class="alert text-center alert-success fade in">
+          <h4 style="margin:0"><%= "<big>Tudo certo!</big> <br> Assim que seu pedido for aprovado, entraremos em contato.".html_safe %></h4>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-md-4">
+      <section class="panel">
+        <div class="panel-body">
+          <!--monthly page view start-->
+          <ul class="monthly-page-view w-p-view-">
+            <li class="pull-left page-view-label">
+            <span class="page-view-value"><%= Job.job_today.count %></span>
+              <span>Vagas postadas hoje.</span>
+            </li>
+            <li class="pull-right">
+              <div id="m-g-light" class="chart"><canvas height="35" width="131" style="display: inline-block; width: 131px; height: 35px; vertical-align: top;"></canvas></div>
+            </li>
+          </ul>
+          <!--monthly page view end-->
+        </div>
+      </section>
+    </div>
+    <div class="col-md-4">
+      <section class="panel">
+        <div class="panel-body">
+          <!--monthly page view start-->
+          <ul class="monthly-page-view w-p-view-">
+            <li class="pull-left page-view-label">
+            <span class="page-view-value"><%= Job.job_week.count %></span>
+              <span>Vagas postadas nessa semana.</span>
+            </li>
+            <li class="pull-right">
+              <div id="m-g-light" class="chart"><canvas height="35" width="131" style="display: inline-block; width: 131px; height: 35px; vertical-align: top;"></canvas></div>
+            </li>
+          </ul>
+          <!--monthly page view end-->
+        </div>
+      </section>
+    </div>
+    <div class="col-md-4">
+      <section class="panel">
+        <div class="panel-body">
+          <!--monthly page view start-->
+          <ul class="monthly-page-view w-p-view-">
+            <li class="pull-left page-view-label">
+            <span class="page-view-value"><%= Job.job_month.count %></span>
+              <span>Vagas postadas nesse mês.</span>
+            </li>
+            <li class="pull-right">
+              <div id="m-g-light" class="chart"><canvas height="35" width="131" style="display: inline-block; width: 131px; height: 35px; vertical-align: top;"></canvas></div>
+            </li>
+          </ul>
+          <!--monthly page view end-->
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="row">
+    <% if current_user.type_user == 0 %>
+      <div class="col-md-6">
+        <section class="panel">
+          <header class="panel-heading head-border">
+            Vagas que você concorre
+            <span class="tools pull-right">
+            </span>
+          </header>
+          <% @userjobs.each do |j| %>
+            <div class="noti-information notification-menu">
+              <!--notification info start-->
+              <div class="notification-list mail-list not-list" style="width:100%">
+                <a href="<%= job_url(j.job.slug) %>" class="single-mail">
+                  <span class="icon bg-dark">
+                  <i class="fa fa-angle-right"></i>
+                  </span>
+                  <%= j.job.title %>
+                  <p>
+                    <small>
+                      <%= j.job.name_offerer %> 
+                    </small>
+                  </p>
+                </a>
+              </div>
+              <!--notification info end-->
+            </div>
+          <% end %>
+        </section>
+      </div>
+    <% else %>
+      <div class="col-md-6">
+        <section class="panel">
+          <header class="panel-heading head-border">
+            Últimas vagas adicionadas por você
+            <span class="tools pull-right">
+            </span>
+          </header>
+          <% current_user.jobs.aproved.order('posted_at DESC').take(5).each do |j| %>
+            <div class="noti-information notification-menu">
+              <!--notification info start-->
+              <div class="notification-list mail-list not-list" style="width:100%">
+                <a href="<%= job_url(j.slug) %>" class="single-mail">
+                  <span class="icon bg-dark">
+                  <i class="fa fa-angle-right"></i>
+                  </span>
+                  <%= j.title %>
+                  <p>
+                    <small>
+                      <%= j.name_offerer %> 
+                    </small>
+                  </p>
+                </a>
+              </div>
+              <!--notification info end-->
+            </div>
+          <% end %>
+        </section>
+      </div>
+    <% end %>
+    <div class="col-md-6">
+      <section class="panel">
+        <header class="panel-heading head-border">
+          Vagas de HOJE
+          <span class="tools pull-right">
+          </span>
+        </header>
+        <div class="noti-information notification-menu">
+          <% @jobs.job_today.order('posted_at DESC').each do |j| %>
+            <!--notification info start-->
+            <div class="notification-list mail-list not-list" style="width:100%">
+              <a href="<%= job_url(j.slug) %>" class="single-mail">
+                <span class="icon bg-dark">
+                <i class="fa fa-angle-right"></i>
+                </span>
+                <%= j.title %>
+                <p>
+                  <small>
+                    <%= j.name_offerer %>
+                  </small>
+                </p>
+              </a>
+            </div>
+            <!--notification info end-->
+          <% end %>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<!--body wrapper end-->

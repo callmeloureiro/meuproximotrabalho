@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if Rails.env.production? %>
+      <meta name="robots" content="index, follow">
+    <% else %>
+      <meta name="robots" content="noindex, nofollow">
+    <% end %>
+    <meta name="description" content="Faça o que você ama e dê adeus ao trabalho chato. Conheça a primeira comunidade de carreira para quem está cansado da mesmice no trabalho.">
+    <meta name="keywords" content="trabalho, meu proximo trabalho, vagas, oportunidades">
+
+    <title><%= title_page %></title>
+
+    <!-- Styles -->
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag    'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css' %>
+    <%= stylesheet_link_tag    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css' %>
+    <link href="/assets/css/app.min.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link href="/assets/vendors/summernote/summernote.css" rel="stylesheet">
+
+    <%= yield(:css) %>
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="http://shamsoft.net/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/favicon.ico">
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="nav-on-header <%= yield (:body_class) %>">
+    <% if current_user %>
+      <% unless current_user.confirmed_at %>
+        <div class="container-fluid">
+          <div class="row">
+            <a href="<%= new_user_confirmation_url(:unconfirmed => true) %>">
+              <div class="alert alert-danger no-margin text-center" role="alert">
+                <strong>Você ainda não confirmou seu email!</strong> <br> Verifique o email que foi enviado para <%= current_user.email %> ou solicite um novo email de confirmação clicando aqui.
+              </div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+      <% if current_user.date_of_birth.blank? || current_user.address.blank? || current_user.phone.blank? %>
+        <div class="container-fluid">
+          <div class="row">
+            <a href="<%= edit_painel_user_user_url(current_user) %>">
+              <div class="alert alert-danger no-margin text-center" role="alert">
+                <strong>Você ainda não completou seu cadastro!</strong> <br> Clique neste balão e atualize seu cadastro.
+              </div>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if params[:newsletter] == "ok" %>
+      <div class="alert alert-success no-margin text-center" role="alert">
+        Obrigado por se cadastrar na nossa newsletter :D
+      </div>
+    <% end %>
+
+    <%= render 'layouts/_app/nav' %>

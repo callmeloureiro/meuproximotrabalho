@@ -1,0 +1,38 @@
+.demo-btn-margin .btn{margin-bottom:6px}
+
+.title-login {
+  margin-bottom:4rem;
+}
+
+.blococadastro {
+  text-align: center;
+}
+
+  .blococadastro p {
+    margin:0;
+  }
+
+  .blococadastro {
+    transition: all .2s ease-in-out 0s
+  }
+
+  .blococadastro .content {
+    border-radius: 10px 0 10px 0;
+  }
+
+    .blococadastro:hover {
+      transform:scale(1.2);
+    }
+
+    .blococadastro .content .fa {
+      font-size:4rem;
+      margin-bottom:1rem;
+    }
+
+    .blococadastro .content p {
+      font-size:2rem;
+    }
+
+a {
+  color:inherit;
+}

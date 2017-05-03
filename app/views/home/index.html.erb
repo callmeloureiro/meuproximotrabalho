@@ -1,0 +1,181 @@
+    <!-- Site header -->
+    <header class="site-header size-lg text-center" style="background-image: url(assets/img/bg-banner1.jpg)">
+      <div class="container">
+        <div class="col-xs-12">
+          <br><br>
+          <h2>Atualmente, existem <mark><%= @jobs.count %></mark> trabalhos disponíveis!</h2>
+          <h5 class="font-alt">Procurou, achou.</h5>
+          <br><br><br>
+          <%= form_tag(search_query_url, method: :get, class: "header-job-search") do %>
+            <div class="input-keyword">
+              <input type="text" class="form-control" name="j" placeholder="Título da vaga ou ofertante.">
+            </div>
+            <div class="input-location">
+              <input type="text" class="form-control" name="c" placeholder="Cidade">
+            </div>
+            <div class="btn-search">
+              <button class="btn btn-primary" type="submit">Procurar trabalhos</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <!-- END Site header -->
+
+    <!-- Main container -->
+    <main>
+      <!-- Recent jobs -->
+      <section>
+        <div class="container">
+          <header class="section-header">
+            <span>Últimos</span>
+            <h2>Trabalhos ofertados</h2>
+          </header>
+          <div class="row item-blocks-connected">
+            <% @jobs.order('posted_at DESC').take(5).each do |j| %>
+              <!-- Job item -->
+              <div class="col-xs-12">
+                <a class="item-block" href="<%= j.contract == "Estágio" ? internship_url(j) : job_url(j) %>">
+                  <header>
+                    <div class="logo-container">
+                      <img src="<%= j.user.avatar.url %>" alt="" class="logo-centered">
+                    </div>
+                    <div class="hgroup">
+                      <h4><%= j.title %> <%= "<i class='fa fa-check-circle' style='color:rgb(61, 188, 61);'></i>".html_safe if j.job_verify %></h4>
+                      <h5><%= j.name_offerer %></h5>
+                    </div>
+                    <div class="header-meta">
+                      <span class="location"><%= j.city %></span>
+                      <span class="label label-success">
+                        <% if j.posted_at > Time.zone.now.beginning_of_day %>
+                          <%="#{time_ago_in_words(j.posted_at)} atrás"%>  
+                        <% else %>
+                          <%= j.posted_at.strftime("%d/%m/%Y") %> 
+                        <% end %>
+                      </span>
+                    </div>
+                  </header>
+                </a>
+              </div>
+              <!-- END Job item -->
+            <% end %>
+          </div>
+          <br><br>
+          <p class="text-center"><a class="btn btn-info" href="<%= search_url %>">Todos os trabalhos</a></p>
+        </div>
+      </section>
+      <!-- END Recent jobs -->
+      <!-- Facts -->
+      <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url(assets/img/bg-pattern.png)">
+        <div class="container">
+
+          <div class="row">
+            <div class="counter col-md-6 col-sm-6">
+              <p><span data-from="0" data-to="<%= @jobs.count %>"></span>+</p>
+              <h6>Trabalhos</h6>
+            </div>
+
+            <div class="counter col-md-6 col-sm-6">
+              <p><span data-from="0" data-to="<%= @users.count %>"></span>+</p>
+              <h6>Membros</h6>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      <!-- END Facts -->
+
+
+      <!-- How it works -->
+      <section>
+        <div class="container">
+
+          <div class="col-sm-12 col-md-12">
+            <header class="section-header text-center">
+              <span>MeuPróximoTrabalho</span>
+              <h2>O que somos?</h2>
+            </header>
+
+            <p class="lead">
+              Meu Próximo Trabalho é uma plataforma simples e completa.
+Simples porquê, para utilizá-la, não é necessário nenhum conhecimento específico. Sabe usar o Facebook? Então você vai tirar de letra.
+Completa porque oferece suporte tanto para quem procura quanto para quem oferece emprego. A busca é otimizada por filtros que direcionam sua pesquisa e fazem com que você encontre exatamente o que procura.
+            </p>
+            
+            
+            <br><br>
+          </div>
+
+        </div>
+      </section>
+      <!-- END How it works -->
+
+
+      <!-- Categories -->
+<!--       <section>
+        <div class="container">
+          <header class="section-header">
+            <span>Áreas</span>
+            <h2>populares</h2>
+          </header>
+
+          <div class="category-grid">
+            <%= link_to search_query_url(:area => "tecnologia") do %>
+              <i class="fa fa-laptop"></i>
+              <h6>Tecnologia</h6>
+              <p>Design, Desenvolvedor back-end, Desenvolvedor front-end</p>
+            <% end %>
+          </div>
+
+        </div>
+      </section> -->
+      <!-- END Categories -->
+      <!-- Newsletter -->
+      <section class="bg-img text-center" style="background-image: url(/assets/img/bg-facts.jpg)">
+        <div class="container">
+          <h2><strong>Newsletter</strong></h2>
+          <h6 class="font-alt">Receba novas vagas semanalmente no seu email.</h6>
+          <br><br>
+          <form class="form-subscribe" action="http://marketing.meuproximotrabalho.com.br/form/submit?formId=4" data-mautic-form="newslettersite" method="post">
+            <div class="input-group">
+              <input type="text" class="form-control input-lg" placeholder="Seu email" name="mauticform[email]">
+              <span class="input-group-btn">
+                <button class="btn btn-success btn-lg" name="mauticform[submit]" type="submit">Inscrever-se</button>
+              </span>
+            </div>
+            <input type="hidden" name="mauticform[formId]" id="mauticform_newslettersite_id" value="4" />
+            <input type="hidden" name="mauticform[return]" id="mauticform_newslettersite_return" value="" />
+            <input type="hidden" name="mauticform[formName]" id="mauticform_newslettersite_name" value="newslettersite" />
+          </form>
+        </div>
+      </section>
+      <!-- END Newsletter -->
+<!--       <section>
+        <div class="container">
+          <div class="col-sm-12 col-md-12">
+            <header class="section-header text-center">
+              <span>Nosso</span>
+              <h2>Blog</h2>
+            </header>
+            <%# @posts.each do |p| %>
+              <div class="col-md-4 blocoblog">
+                <%# if p["featured_media"] != 0 %>
+                  <a href="<%#= p["link"] %>"><%#= image_tag(featured_media(p["featured_media"], "full")) %></a>
+                <%# end %>
+                <h2 class="title-blog"><%#= p["title"]["rendered"] %></h2>
+                <%#= p["excerpt"]["rendered"].html_safe %>
+                <a href="<%#= p["link"] %>" target="_self" class="link">Leia mais</a>
+              </div>
+            <%# end %>
+          </div>
+        </div>
+      </section> -->
+    </main>
+    <!-- END Main container -->
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js' %>
+  <%= javascript_include_tag 'http://meuproximotrabalho.com.br//assets/js/app/main.js' %>
+<% end %>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MeuPróximoTrabalho">
+    <meta name="keywords" content="">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Meu Proximo Trabalho - Login</title>
+
+    <!-- Styles -->
+    <link href="/assets/css/app.min.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="http://shamsoft.net/apple-touch-icon.png">
+    <link rel="icon" href="/assets/img/favicon.ico">
+  </head>
+
+  <body class="login-page">
+
+
+    <main>
+
+      <%= yield %>
+
+    </main>
+
+
+    <!-- Scripts -->
+    <script src="/assets/js/app.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+    <%# if current_user && current_user.user_premium %>
+      <!-- Start of Async Drift Code -->
+      <script>
+      !function() {
+        var t;
+        if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+        t.methods = [ "identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+        t.factory = function(e) {
+          return function() {
+            var n;
+            return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+          };
+        }, t.methods.forEach(function(e) {
+          t[e] = t.factory(e);
+        }), t.load = function(t) {
+          var e, n, o, r;
+          e = 3e5, r = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+          o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + t + ".js", 
+          n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+        });
+      }();
+      drift.SNIPPET_VERSION = '0.2.0'
+      drift.load('zrauvgx9gyyz')
+      </script>
+
+      <script type="text/javascript">
+        window.smartlook||(function(d) {
+        var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+        var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+        c.charset='utf-8';c.src='//rec.getsmartlook.com/recorder.js';h.appendChild(c);
+        })(document);
+        smartlook('init', '6998c3ae452439fca33d6fd86246fa735540549c');
+        <% if current_user %>
+          smartlook('tag', 'id', '<%= current_user.id %>');
+          smartlook('tag', 'name', '<%= current_user.name %>');
+          smartlook('tag', 'email', '<%= current_user.email %>');
+        <% end %>
+      </script>
+      <!-- End of Async Drift Code -->
+      <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-44376143-10', 'auto');
+    ga('send', 'pageview');
+  </script>
+    <%# end %>
+
+  </body>
+
+</html>

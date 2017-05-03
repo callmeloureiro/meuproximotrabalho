@@ -1,0 +1,63 @@
+<!-- page head start-->
+<div class="page-head">
+  <div class="text-center">
+    <h1 style="margin:0">
+      Gerenciar Vagas
+    </h1>
+  </div>
+</div>
+<!-- page head end-->
+<!--body wrapper start-->
+<div class="wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel">
+        <header class="panel-heading head-border">
+          <a class="btn btn-primary btn-sm" href="<%= new_painel_user_job_url %>">Adicionar novo</a>
+          <a class="btn btn-gray btn-sm" href="<%= painel_user_jobs_url %>">Todos</a>
+          <a class="btn btn-gray btn-sm" href="<%= painel_user_jobs_url(:status => 'aprovados') %>">Aprovados</a>
+          <a class="btn btn-gray btn-sm" href="<%= painel_user_jobs_url(:status => 'nao-aprovados') %>">Não aprovados</a>
+          <a class="btn btn-gray btn-sm" href="<%= painel_user_jobs_url(:status => 'aguardando-aprovacao') %>">Aguardando</a>
+        </header>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Ofertante</th>
+                <th>Data de criação</th>
+                <th>Data de Postagem</th>
+                <th>Inscritos</th>
+                <th colspan="3">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @jobs.each do |j| %>
+                <tr>
+                  <th scope="row"><%= j.id %></th>
+                  <td><%= j.title %></td>
+                  <td><%= j.name_offerer %></td>
+                  <td><%= j.created_at.strftime("%d/%m/%Y") %></td>
+                  <td><%= j.posted_at.strftime("%d/%m/%Y") if j.posted_at? %></td>
+                  <td>
+                    <a href="<%= candidatos_painel_user_job_url(j.slug) %>" class="btn btn-xs btn-default">Ver inscritos (<%= j.users_applies.count %>)</a>
+                  </td>
+                  <td><a class="btn btn-xs btn-success" href="<%= edit_painel_user_job_url(j.slug) %>">Editar</a></td>
+                  <% if j.closed? %>
+                    <td><%= button_to 'Deletar', painel_user_job_path(j), method: :delete %></td>
+                  <% end %>
+                  <% unless j.closed? %>
+                    <td><%= button_to 'Fechar vaga', painel_user_job_path(j, :job => {:closed => true}), method: :put %></td>
+                  <% end %>
+                  <td>Status: <%= j.status %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<!--body wrapper end-->

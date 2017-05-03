@@ -1,0 +1,24 @@
+<%= devise_error_messages! %>
+<div class="login-block">
+  <img src="/assets/img/logo.png" alt="">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="ti-email"></i></span>
+        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+      </div>
+    </div>
+    <hr class="hr-xs">
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="ti-lock"></i></span>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Senha" %>
+      </div>
+    </div>
+    <%= f.submit "Login", class: "btn btn-primary btn-block" %>
+  <% end %>
+</div>
+
+<div class="login-links">
+  <%= render "companies/shared/links" %>
+</div>
