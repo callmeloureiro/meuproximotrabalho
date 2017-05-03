@@ -24,4 +24,4 @@ User: user@user.com / user
 
 ## Créditos
 
-Feito com muito ♥ por [Matheus Loureiro](http://fb.com/mathloureiro).
+Feito com muito ♥ por [Matheus Loureiro](http://fb.com/mathloureiro). Licensed under the [MIT License](http://mathloureiro.mit-license.org).

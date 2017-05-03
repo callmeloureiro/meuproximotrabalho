@@ -35,6 +35,15 @@
   </head>
 
   <body class="nav-on-header <%= yield (:body_class) %>">
+    <div class="container-fluid">
+      <div class="row">
+        <a href="<%= new_user_confirmation_url(:unconfirmed => true) %>">
+          <div class="alert alert-danger no-margin text-center" role="alert">
+            <strong>Atenção</strong> essa é uma versão DEMO!
+          </div>
+        </a>
+      </div>
+    </div>
     <% if current_user %>
       <% unless current_user.confirmed_at %>
         <div class="container-fluid">
